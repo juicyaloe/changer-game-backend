@@ -10,13 +10,17 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
+    readonly_fields = ["created_at", "updated_at"]
+
     list_display = ('userid', 'name', 'address', 'phone', 'phone_check',
-                    'email', 'email_check', 'date_of_birth', 'level', 'is_admin')
+                    'email', 'email_check', 'date_of_birth', 'level', 'is_admin',
+                    'created_at', 'updated_at')
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('userid', 'password')}),
         ('Personal info', {'fields': ('name', 'address', 'phone', 'phone_check',
                                       'email', 'email_check', 'date_of_birth', 'level', )}),
+        ('date', {'fields': ('created_at', 'updated_at')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
 

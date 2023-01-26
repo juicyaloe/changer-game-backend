@@ -28,7 +28,8 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
+    password = ReadOnlyPasswordHashField(label=("Password"),
+        help_text=("우측 변경 버튼을 눌러 비밀번호를 변경할 수 있습니다. <a href=\"../password/\">변경</a>"))
 
     class Meta:
         model = User
