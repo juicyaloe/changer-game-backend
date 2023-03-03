@@ -13,13 +13,13 @@ class UserAdmin(BaseUserAdmin):
     readonly_fields = ["created_at", "updated_at"]
 
     list_display = ('userid', 'name', 'address', 'phone', 'phone_check',
-                    'email', 'email_check', 'date_of_birth', 'level', 'is_admin',
+                    'email', 'email_check', 'date_of_birth', 'level', 'recommendation', 'account', 'is_admin',
                     'created_at', 'updated_at')
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('userid', 'password')}),
         ('Personal info', {'fields': ('name', 'address', 'phone', 'phone_check',
-                                      'email', 'email_check', 'date_of_birth', 'level', )}),
+                                      'email', 'email_check', 'date_of_birth', 'level', 'recommendation', 'account')}),
         ('date', {'fields': ('created_at', 'updated_at')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
@@ -28,7 +28,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('userid', 'name', 'address', 'phone', 'phone_check', 'email', 'email_check',
-                       'date_of_birth', 'level', 'password1', 'password2')}
+                       'date_of_birth', 'level', 'recommendation', 'account', 'password1', 'password2')}
          ),
     )
 

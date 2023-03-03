@@ -4,7 +4,7 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, userid, name, address, phone, phone_check, email, email_check, date_of_birth, level, password=None):
+    def create_user(self, userid, name, address, phone, phone_check, email, email_check, date_of_birth, level, recommendation, account, password=None):
         if not userid:
             raise ValueError('userid를 입력해주세요.')
 
@@ -17,14 +17,16 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
             email_check=email_check,
             date_of_birth=date_of_birth,
-            level=level
+            level=level,
+            recommendation=recommendation,
+            account=account,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, userid, name, address, phone, phone_check, email, email_check, date_of_birth, level, password):
+    def create_superuser(self, userid, name, address, phone, phone_check, email, email_check, date_of_birth, level, recommendation, account, password):
         user = self.create_user(
             userid,
             password=password,
@@ -35,7 +37,9 @@ class UserManager(BaseUserManager):
             email=email,
             email_check=email_check,
             date_of_birth=date_of_birth,
-            level=level
+            level=level,
+            recommendation=recommendation,
+            account=account,
         )
 
         user.is_admin = True
@@ -54,6 +58,8 @@ class User(AbstractBaseUser):
     email_check = models.BooleanField(default=False)
     date_of_birth = models.DateField()
     level = models.CharField(max_length=20)
+    recommendation = models.CharField(max_length=20)
+    account = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -64,7 +70,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'userid'
-    REQUIRED_FIELDS = ['name', 'address', 'phone', 'phone_check', 'email', 'email_check', 'date_of_birth', 'level']
+    REQUIRED_FIELDS = ['name', 'address', 'phone', 'phone_check', 'email', 'email_check', 'date_of_birth', 'level', 'recommendation', 'account']
 
     def __str__(self):
         return self.userid

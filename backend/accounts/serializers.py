@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ('userid', 'password',
                   'name', 'address', 'phone', 'phone_check',
-                  'email', 'email_check', 'date_of_birth', 'level')
+                  'email', 'email_check', 'date_of_birth', 'level', 'recommendation', 'account')
 
     def create(self, validated_data):
         temp_phone_check = validated_data['phone_check'] if 'phone_check' in validated_data else False
@@ -34,6 +34,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             email_check=temp_email_check,
             date_of_birth=validated_data['date_of_birth'],
             level=validated_data['level'],
+            recommendation=validated_data['recommendation'],
+            account=validated_data['account'],
         )
 
         user.set_password(validated_data['password'])
